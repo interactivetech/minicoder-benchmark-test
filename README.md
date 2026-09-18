@@ -68,7 +68,7 @@ Results and trajectories are written below `results/`, which is ignored by Git b
 
 ## Reproducibility notes
 
-The default configuration uses deterministic temperature `0.0`, one worker, the model card's `hosted_vllm` provider name, and the current mini-SWE-agent built-in SWE-bench prompt. Record the following alongside every result:
+The default configuration uses deterministic temperature `0.0`, one worker, the model card's `hosted_vllm` provider name, and mini-SWE-agent's text-based backtick SWE-bench prompt. Record the following alongside every result:
 
 ```bash
 python --version

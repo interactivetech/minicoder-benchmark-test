@@ -1,9 +1,12 @@
-# Layer this file after mini-SWE-agent's built-in benchmarks/swebench.yaml.
+# Layer this file after mini-SWE-agent's text-based benchmarks/swebench_backticks.yaml.
 model:
+  model_class: litellm_textbased
   model_name: hosted_vllm/ricdomolm/mini-coder-1.7b
+  action_regex: '```(?:mswea_bash_command|bash)\s*\n(.*?)\n```'
   model_kwargs:
     api_base: http://localhost:8000/v1
     api_key: EMPTY
     temperature: 0.0
-    max_tokens: 40960
-
+    # Keep room for the SWE-bench prompt and accumulated agent history inside
+    # the model's 40960-token context window.
+    max_tokens: 8192
