@@ -2,6 +2,8 @@
 
 Reproducible deployment of [`ricdomolm/mini-coder-1.7b`](https://huggingface.co/ricdomolm/mini-coder-1.7b) with [`mini-swe-agent`](https://github.com/SWE-agent/mini-swe-agent) for SWE-bench experiments.
 
+For a complete copy-paste installation, inference, and evaluation walkthrough, see [MANUAL_SWEBENCH.md](MANUAL_SWEBENCH.md).
+
 The model card reports 18.6% pass@1 and 50.4% pass@100 on SWE-bench Verified Bash-only. Those numbers are a reference point, not a guarantee: results depend on the mini-SWE-agent version, SWE-bench revision, serving engine, decoding settings, environment, and retry policy.
 
 ## Layout
