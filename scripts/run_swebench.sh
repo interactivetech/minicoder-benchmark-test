@@ -29,6 +29,9 @@ fi
 if [[ -n "${INSTANCE_SLICE:-}" ]]; then
   args+=(--slice "$INSTANCE_SLICE")
 fi
+if [[ "${REDO_EXISTING:-0}" == "1" ]]; then
+  args+=(--redo-existing)
+fi
 
 mkdir -p "$output_dir"
 export LITELLM_MODEL_REGISTRY_PATH="${repo_root}/configs/litellm_registry.json"

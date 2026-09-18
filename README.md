@@ -61,6 +61,7 @@ Useful environment variables:
 - `WORKERS` (default: `1`)
 - `INSTANCE_FILTER` (optional regular expression)
 - `INSTANCE_SLICE` (optional slice such as `0:10`)
+- `REDO_EXISTING=1` (rerun instances with an existing trajectory)
 - `OUTPUT_DIR` (default: `results/minicoder-1.7b`)
 
 Results and trajectories are written below `results/`, which is ignored by Git because they can be large and may contain model outputs.
@@ -83,4 +84,3 @@ The Docker image is configurable in `docker-compose.yml`; pin it to a tested vLL
 - Model card and serving example: <https://huggingface.co/ricdomolm/mini-coder-1.7b>
 - mini-SWE-agent: <https://github.com/SWE-agent/mini-swe-agent>
 - SWE-bench: <https://www.swebench.com/>
-
