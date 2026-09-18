@@ -12,7 +12,7 @@ if ! command -v mini-extra >/dev/null 2>&1; then
   exit 1
 fi
 
-builtin_config="$(python -c 'from minisweagent.config import builtin_config_dir; print(builtin_config_dir / "benchmarks" / "swebench.yaml")')"
+builtin_config="$(python -c 'from minisweagent.config import builtin_config_dir; print(builtin_config_dir / "benchmarks" / "swebench.yaml")' | tail -n 1)"
 args=(
   swebench
   --config "$builtin_config"
@@ -33,4 +33,3 @@ fi
 mkdir -p "$output_dir"
 export LITELLM_MODEL_REGISTRY_PATH="${repo_root}/configs/litellm_registry.json"
 exec mini-extra "${args[@]}"
-
