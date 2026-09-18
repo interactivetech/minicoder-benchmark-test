@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "minicoder-benchmark-test"
+version = "0.1.0"
+description = "Reproducible mini-coder-1.7b and mini-SWE-agent benchmark deployment"
+requires-python = ">=3.10"
+dependencies = [
+  "mini-swe-agent==2.4.6",
+]
+
+[tool.setuptools]
+py-modules = []
+

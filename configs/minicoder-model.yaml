@@ -1,0 +1,9 @@
+# Layer this file after mini-SWE-agent's built-in benchmarks/swebench.yaml.
+model:
+  model_name: hosted_vllm/ricdomolm/mini-coder-1.7b
+  model_kwargs:
+    api_base: http://localhost:8000/v1
+    api_key: EMPTY
+    temperature: 0.0
+    max_tokens: 40960
+
