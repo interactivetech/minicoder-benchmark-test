@@ -6,9 +6,14 @@ subset="${SUBSET:-verified}"
 split="${SPLIT:-test}"
 workers="${WORKERS:-1}"
 output_dir="${OUTPUT_DIR:-${repo_root}/results/minicoder-1.7b}"
+model_config="${MODEL_CONFIG:-${repo_root}/configs/minicoder-model.yaml}"
 
 if ! command -v mini-extra >/dev/null 2>&1; then
   printf 'mini-extra is not installed. Run: python -m pip install -e .\n' >&2
+  exit 1
+fi
+if [[ ! -f "$model_config" ]]; then
+  printf 'Model config not found: %s\n' "$model_config" >&2
   exit 1
 fi
 
@@ -16,7 +21,7 @@ builtin_config="$(python -c 'from minisweagent.config import builtin_config_dir;
 args=(
   swebench
   --config "$builtin_config"
-  --config "${repo_root}/configs/minicoder-model.yaml"
+  --config "$model_config"
   --subset "$subset"
   --split "$split"
   --workers "$workers"

@@ -1,0 +1,12 @@
+# Stochastic variant for pass@K experiments. Keep the deterministic config for
+# the primary pass@1 benchmark result.
+model:
+  model_class: litellm_textbased
+  model_name: hosted_vllm/ricdomolm/mini-coder-1.7b
+  action_regex: '```(?:mswea_bash_command|bash)\s*\n(.*?)\n```'
+  model_kwargs:
+    api_base: http://localhost:8000/v1
+    api_key: EMPTY
+    temperature: 0.7
+    top_p: 0.95
+    max_tokens: 8192

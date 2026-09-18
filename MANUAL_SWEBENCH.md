@@ -115,6 +115,46 @@ The inference dataset and evaluation dataset intentionally use different names:
 
 The evaluation copy contains the Docker image and test metadata required by the official harness.
 
+## Running pass@5 or pass@10
+
+Pass@K means that an instance counts as solved when at least one of K
+independent generated patches is resolved by the SWE-bench evaluator. The
+default model configuration uses `temperature: 0.0`, so use the stochastic
+configuration for this experiment.
+
+Each attempt needs its own output and evaluation directory:
+
+```bash
+for sample in 01 02 03 04 05; do
+  OUTPUT_DIR="results/pass5/sample-${sample}" \
+  MODEL_CONFIG="configs/minicoder-model-sampling.yaml" \
+  WORKERS=4 \
+  ./scripts/run_swebench.sh
+
+  PREDICTIONS_PATH="results/pass5/sample-${sample}/preds.json" \
+  REPORT_DIR="results/evaluation/pass5/sample-${sample}" \
+  RUN_ID="minicoder-1.7b-pass5-${sample}" \
+  EVAL_WORKERS=4 \
+  ./scripts/evaluate_swebench.sh
+done
+```
+
+Aggregate the five evaluator reports:
+
+```bash
+python scripts/aggregate_passk.py \
+  results/evaluation/pass5/sample-01/*.json \
+  results/evaluation/pass5/sample-02/*.json \
+  results/evaluation/pass5/sample-03/*.json \
+  results/evaluation/pass5/sample-04/*.json \
+  results/evaluation/pass5/sample-05/*.json
+```
+
+For pass@10, extend the loop to samples `06` through `10` and pass all ten
+reports to the aggregation command. This requires 5x or 10x the inference
+and evaluation work of pass@1. Keep `REDO_EXISTING=0` when resuming an
+interrupted sample.
+
 ## 7. Run the full Verified benchmark
 
 Generate predictions for all 500 Verified test instances:
@@ -188,4 +228,3 @@ Use a fresh output directory or rerun inference with:
 ```bash
 REDO_EXISTING=1 ./scripts/run_swebench.sh
 ```
-
