@@ -54,6 +54,38 @@ curl -i http://localhost:8000/health
 
 Continue only when the response is `HTTP/1.1 200 OK`.
 
+### Using multiple GPUs for inference throughput
+
+`WORKERS` controls concurrent agent tasks, not GPU allocation. By default,
+vLLM loads one model replica on GPU 0. To replicate MiniCoder on all four
+GPUs, set this in `.env` before starting vLLM:
+
+```text
+VLLM_DATA_PARALLEL_SIZE=4
+```
+
+Then recreate the vLLM container and verify that all GPUs have model memory
+allocated:
+
+```bash
+docker compose up -d --force-recreate vllm
+./scripts/smoke_test.sh
+nvidia-smi
+```
+
+With four replicas, use up to 16 agent workers for approximately four tasks
+per GPU:
+
+```bash
+WORKERS=16 \
+REDO_EXISTING=0 \
+./scripts/run_swebench.sh
+```
+
+Start with `WORKERS=8` and increase to 16 only if the GPUs remain stable and
+the vLLM queue is being utilized. Stop the active SWE-bench runner before
+recreating vLLM; existing predictions remain available for resumption.
+
 ## 4. Run the API smoke test
 
 ```bash
