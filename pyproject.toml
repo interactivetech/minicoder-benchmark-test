@@ -11,6 +11,10 @@ dependencies = [
   "mini-swe-agent==2.4.6",
 ]
 
+[project.optional-dependencies]
+evaluation = [
+  "swebench==5.0.2",
+]
+
 [tool.setuptools]
 py-modules = []
-

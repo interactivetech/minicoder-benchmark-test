@@ -6,4 +6,5 @@ __pycache__/
 .pytest_cache/
 results/
 logs/
+*.minicoder-*.json
 .project-git/

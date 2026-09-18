@@ -25,7 +25,7 @@ The model card reports 18.6% pass@1 and 50.4% pass@100 on SWE-bench Verified Bas
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -e .
+python -m pip install -e '.[evaluation]'
 ```
 
 This installs and pins `mini-swe-agent==2.4.6`. The vLLM server is intentionally deployed separately because its installation is GPU/platform-specific.
@@ -53,6 +53,25 @@ Run the full Verified test split after the smoke run succeeds:
 ```bash
 ./scripts/run_swebench.sh
 ```
+
+The inference command writes `preds.json`. Evaluate those generated patches with
+the official SWE-bench harness:
+
+```bash
+./scripts/evaluate_swebench.sh
+```
+
+For the one-instance inference and score:
+
+```bash
+OUTPUT_DIR=results/minicoder-1.7b \
+INSTANCE_IDS='django__django-11099' \
+./scripts/evaluate_swebench.sh
+```
+
+The evaluator prints a score such as `SWE-bench score: 1/1 = 100.00%`. Use a
+fresh `RUN_ID` for every changed prediction because evaluator results are
+cached by run ID.
 
 Useful environment variables:
 
